@@ -2,11 +2,13 @@ Foi usado flowbite para o Tailwind
 
 https://flowbite.com/docs/getting-started/django/
 -------------------------------------------------------------
+Para filtro das Perguntas utilizei django-filters
+-------------------------------------------------------------
 Instalar nodejs
 -------------------------------------------------------------
 Instalar pacotes
 
-nmp install
+npm install
 ------------------------------------------------------------
 instalar requerimentos
 
