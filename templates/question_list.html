@@ -1,0 +1,61 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+<div class="relative overflow-x-auto sm:rounded-lg">
+  
+  <div class="flex flex-col items-center">
+    <!-- Help text -->
+    <span class="text-sm text-gray-700 dark:text-gray-400">
+        Mostrando <span class="font-semibold text-gray-900 dark:text-gray-900">{{ questions.start_index }}</span>
+        até <span class="font-semibold text-gray-900 dark:text-gray-900">{{ questions.end_index }}</span>
+        de <span class="font-semibold text-gray-900 dark:text-gray-900">{{ questions.paginator.count }}</span> entradas
+    </span>
+    <div class="inline-flex mt-2 xs:mt-0">
+        <!-- Previous button -->
+        {% if questions.has_previous %}
+            <a href="?page={{ questions.previous_page_number }}" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-900">
+                <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+                </svg>
+                Prev
+            </a>
+        {% endif %}
+        <!-- Next button -->
+        {% if questions.has_next %}
+            <a href="?page={{ questions.next_page_number }}" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Next
+                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        {% endif %}
+    </div>
+</div>
+  
+  
+  
+    {% for question in questions %}
+    <div class="p-3" data-drawer-body-scrolling="true">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-3">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                    <a href="#" class="font-semibold text-gray-900 underline dark:text-white decoration-indigo-500">Pergunta:</a>
+                    <p class="text-left text-base rtl:text-right text-gray-500 dark:text-gray-400">{{ question.question_text }}</p>
+                </caption>
+            </table>
+            <div class="flex flex-row py-6">
+                <a href="{% url 'question_edit' question.id %}" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Editar</a>
+                
+                <form action="{% url 'question_delete' question.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">Excluir</button>
+</form>
+                
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
