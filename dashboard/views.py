@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Question
 from .filters import QuestionFilter
 from django.core.paginator import Paginator, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -39,7 +40,7 @@ def questions(request):
 
     return render(request, 'question_list.html', {'questions': questions})
     
-    
+
 def question_edit(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.method == 'POST':
@@ -48,9 +49,12 @@ def question_edit(request, question_id):
         question.save()
         return redirect('questions')
     return render(request, 'question_edit.html', {'question': question})
-    
+
+
 def question_delete(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.method == 'POST':
         question.delete()
         return redirect('questions')
+    
+

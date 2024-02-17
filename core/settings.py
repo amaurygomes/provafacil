@@ -121,3 +121,8 @@ COMPRESS_ROOT = BASE_DIR / 'static'
 COMPRESS_ENABLED = True
 
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+
+#Login redirect
+
+LOGIN_REDIRECT_URL = '/login/'
